@@ -102,6 +102,7 @@ public class SignUpFragment extends Fragment {
 
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
+        Toast.makeText(getActivity(), "New Account Created", Toast.LENGTH_SHORT).show();
         if (!validateForm()) {
             return;
         }
@@ -110,7 +111,6 @@ public class SignUpFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-                        Toast.makeText(getActivity(), "New Account Created", Toast.LENGTH_SHORT).show();
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
