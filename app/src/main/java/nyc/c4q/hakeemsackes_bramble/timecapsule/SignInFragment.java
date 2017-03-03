@@ -72,7 +72,6 @@ public class SignInFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 setSignInCredentials();
-                checkPassword();
             }
         });
     }
@@ -93,18 +92,10 @@ public class SignInFragment extends Fragment {
         }
     }
 
-    private void setSignInCredentials(){
+    private void setSignInCredentials() {
         signIn(et_signin_email.getText().toString(), et_signin_password.getText().toString());
     }
 
-    private void checkPassword(){
-        if (validateForm()) {
-            Toast.makeText(getActivity(), "Signing In", Toast.LENGTH_SHORT).show();
-            goSignIn();
-        } else {
-            Toast.makeText(getActivity(), "Try Again", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void goSignIn() {
         Intent intent = new Intent(getActivity(), SignInActivity.class);
@@ -122,13 +113,17 @@ public class SignInFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-                        Toast.makeText(getActivity(), "Signing In", Toast.LENGTH_SHORT).show();
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Signing In", Toast.LENGTH_SHORT).show();
+                            goSignIn();
+                        }
+
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
+                            Toast.makeText(getActivity(), "Authentication failed. Try Again.",
                                     Toast.LENGTH_SHORT).show();
                         }
 

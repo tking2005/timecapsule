@@ -35,7 +35,6 @@ public class SignUpFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +71,7 @@ public class SignUpFragment extends Fragment {
         iv_signup_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(et_signup_email.getText().toString(), et_signup_password.getText().toString());
-                goSignUp();
-
+                setSignUpCredentials();
             }
         });
     }
@@ -100,6 +97,10 @@ public class SignUpFragment extends Fragment {
         SignUpFragment.this.startActivity(intent);
     }
 
+    private void setSignUpCredentials() {
+        createAccount(et_signup_email.getText().toString(), et_signup_password.getText().toString());
+    }
+
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
         Toast.makeText(getActivity(), "New Account Created", Toast.LENGTH_SHORT).show();
@@ -115,8 +116,13 @@ public class SignUpFragment extends Fragment {
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Account Created", Toast.LENGTH_SHORT).show();
+                            goSignUp();
+                        }
+
                         if (!task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Authentication Failed",
+                            Toast.makeText(getActivity(), "Authentication Failed. Try Again.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
