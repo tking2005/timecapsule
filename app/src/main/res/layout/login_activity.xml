@@ -31,7 +31,7 @@
             android:background="#F2F9FD"
             android:clickable="true"
             android:onClick="onClick"
-            android:src="@drawable/signin3"
+            android:src="@drawable/signin4"
             app:layout_heightPercent="20%"
             app:layout_widthPercent="50%" />
 
@@ -41,7 +41,7 @@
             android:background="#F2F9FD"
             android:clickable="true"
             android:onClick="onClick"
-            android:src="@drawable/signup3"
+            android:src="@drawable/signup4"
             app:layout_heightPercent="20%"
             app:layout_widthPercent="50%" />
 
