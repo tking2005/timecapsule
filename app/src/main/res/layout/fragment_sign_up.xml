@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_login_credentials_sign_up"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_signup_email"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="24dp"
+        android:src="@drawable/ic_email_black_24dp" />
+
+    <EditText
+        android:id="@+id/et_signup_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_signup_email"
+        android:layout_alignTop="@id/iv_signup_email"
+        android:layout_marginEnd="24dp"
+        android:layout_toRightOf="@id/iv_signup_email"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="24dp"
+        android:textColor="#314362"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/iv_signup_password"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@id/et_signup_email"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="51dp"
+        android:paddingLeft="24dp"
+        android:src="@drawable/ic_lock_black_24dp" />
+
+    <EditText
+        android:id="@+id/et_signup_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_signup_email"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="51dp"
+        android:layout_toRightOf="@id/iv_signup_password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="24dp"
+        android:textColor="#314362"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/iv_signup_bottom"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#4e8dd0"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:src="@drawable/timecapsule_signup_bottom3"
+        app:layout_heightPercent="20%" />
+
+
+</android.support.percent.PercentRelativeLayout>
+
