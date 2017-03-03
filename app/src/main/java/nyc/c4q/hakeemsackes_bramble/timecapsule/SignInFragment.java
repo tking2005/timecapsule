@@ -29,10 +29,10 @@ public class SignInFragment extends Fragment {
     private static final String TAG = SignInFragment.class.getSimpleName();
     private View mRoot;
     private ImageView iv_signin_bottom;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private EditText et_signin_email;
     private EditText et_signin_password;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
     @Override
@@ -71,8 +71,8 @@ public class SignInFragment extends Fragment {
         iv_signin_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn(et_signin_email.getText().toString(), et_signin_password.getText().toString());
-                goSignIn();
+                setSignInCredentials();
+                checkPassword();
             }
         });
     }
@@ -93,6 +93,19 @@ public class SignInFragment extends Fragment {
         }
     }
 
+    private void setSignInCredentials(){
+        signIn(et_signin_email.getText().toString(), et_signin_password.getText().toString());
+    }
+
+    private void checkPassword(){
+        if (validateForm()) {
+            Toast.makeText(getActivity(), "Signing In", Toast.LENGTH_SHORT).show();
+            goSignIn();
+        } else {
+            Toast.makeText(getActivity(), "Try Again", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void goSignIn() {
         Intent intent = new Intent(getActivity(), SignInActivity.class);
         SignInFragment.this.startActivity(intent);
@@ -108,9 +121,8 @@ public class SignInFragment extends Fragment {
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(getActivity(), "Signing In", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
+                        Toast.makeText(getActivity(), "Signing In", Toast.LENGTH_SHORT).show();
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
