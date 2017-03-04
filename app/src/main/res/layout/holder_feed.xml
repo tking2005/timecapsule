@@ -12,14 +12,14 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        card_view:cardBackgroundColor="@color/colorPrimary"
+        card_view:cardBackgroundColor="@color/colorAccent"
         card_view:cardCornerRadius="10dp"
         card_view:cardUseCompatPadding="true">
 
         <TextView
             android:id="@+id/tv_number"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="30sp" />
