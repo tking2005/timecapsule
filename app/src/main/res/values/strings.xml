@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">time capsule</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAS3beZYwIHMJc1L2XecrNTT-NElC8Ykv0</string>
+
 </resources>
