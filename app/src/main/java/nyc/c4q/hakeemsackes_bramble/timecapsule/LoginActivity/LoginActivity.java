@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.LoginActivity;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.loginactivity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

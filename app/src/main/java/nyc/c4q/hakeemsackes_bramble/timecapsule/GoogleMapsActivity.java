@@ -47,5 +47,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         LatLng newyork = new LatLng(40.7128,  -73.985428); //40.7128° N, -74.0059° W
         mMap.addMarker(new MarkerOptions().position(newyork).title("Marker in New York"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(newyork));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
     }
 }
