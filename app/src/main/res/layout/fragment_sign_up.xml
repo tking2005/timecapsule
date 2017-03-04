@@ -57,10 +57,10 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="#4e8dd0"
+        android:background="@color/colorPrimaryDark"
         android:clickable="true"
         android:onClick="onClick"
-        android:src="@drawable/timecapsule_signup_bottom3"
+        android:src="@drawable/timecapsule_signup_bottom4"
         app:layout_heightPercent="20%" />
 
 
