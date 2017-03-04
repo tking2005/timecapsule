@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity;
 
 import android.app.Fragment;
 import android.content.Intent;

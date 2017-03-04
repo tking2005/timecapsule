@@ -1,12 +1,11 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity.controller;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.controller;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity.view.FeedViewHolder;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.view.FeedViewHolder;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
 
 /**
