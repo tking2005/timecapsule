@@ -1,23 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:layout_gravity="center"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="nyc.c4q.hakeemsackes_bramble.timecapsule.ProfileFragment">
+
+    <TextView
+        android:id="@+id/tv_profile_username"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="heycatwonton"
+        android:textStyle="bold"
+        app:layout_heightPercent="10%" />
+
+    <ImageView
+        android:id="@+id/iv_profile_photo"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/tv_profile_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:src="@drawable/profile_cat" />
+
+    <TextView
+        android:id="@+id/tv_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_profile_photo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:text="Cat Wong" />
+
+    <Button
+        android:id="@+id/bt_edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tv_profile_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorAccent"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="Edit Profile"
+        app:layout_heightPercent="6%" />
+
+    <ImageView
+        android:id="@+id/iv_profile_tc_created"
+        android:layout_below="@id/bt_edit_profile"
+        android:src="@drawable/tc_bw"
+        app:layout_heightPercent="5%"
+        app:layout_widthPercent="33.33%" />
+
+    <TextView
+        android:id="@+id/tv_profile_tc_created"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iv_profile_tc_created"
+        android:layout_alignRight="@id/iv_profile_tc_created"
+        android:layout_below="@+id/iv_profile_tc_created"
+        android:gravity="center"
+        android:text="created" />
+
+    <TextView
+        android:id="@+id/tv_profile_tc_created_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_profile_tc_created"
+        android:layout_alignRight="@id/tv_profile_tc_created"
+        android:layout_below="@+id/tv_profile_tc_created"
+        android:gravity="center"
+        android:text="10" />
+
+    <ImageView
+        android:id="@+id/iv_profile_tc_opened"
+        android:layout_below="@id/bt_edit_profile"
+        android:layout_toRightOf="@id/iv_profile_tc_created"
+        android:src="@drawable/tc_bw"
+        app:layout_heightPercent="5%"
+        app:layout_widthPercent="33.33%" />
+
+    <TextView
+        android:id="@+id/tv_profile_tc_opened"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iv_profile_tc_opened"
+        android:layout_alignRight="@id/iv_profile_tc_opened"
+        android:layout_below="@id/iv_profile_tc_opened"
+        android:gravity="center"
+        android:text="opened" />
+
+    <TextView
+        android:id="@+id/tv_profile_tc_opened_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_profile_tc_opened"
+        android:layout_alignRight="@id/tv_profile_tc_opened"
+        android:layout_below="@id/tv_profile_tc_created"
+        android:gravity="center"
+        android:text="2" />
+
+    <ImageView
+        android:id="@+id/iv_profile_tc_unopened"
+        android:layout_below="@id/bt_edit_profile"
+        android:layout_toRightOf="@id/iv_profile_tc_opened"
+        android:src="@drawable/tc_bw"
+        app:layout_heightPercent="5%"
+        app:layout_widthPercent="33.33%" />
+
+    <TextView
+        android:id="@+id/tv_profile_tc_unopened"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iv_profile_tc_unopened"
+        android:layout_alignRight="@id/iv_profile_tc_unopened"
+        android:layout_below="@id/iv_profile_tc_unopened"
+        android:gravity="center"
+        android:text="unopened" />
+
+    <TextView
+        android:id="@+id/tv_profile_tc_unopened_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_profile_tc_unopened"
+        android:layout_alignRight="@id/tv_profile_tc_unopened"
+        android:layout_below="@id/tv_profile_tc_created"
+        android:gravity="center"
+        android:text="3" />
+
 
     <TextView
         android:id="@+id/tv_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PROFILE FRAGMENT"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
+        android:text="PROFILE FRAGMENT"
         android:textStyle="bold" />
 
-</FrameLayout>
+
+</android.support.percent.PercentRelativeLayout>
