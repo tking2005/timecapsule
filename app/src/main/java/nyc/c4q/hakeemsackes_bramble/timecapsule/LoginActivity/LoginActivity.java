@@ -1,9 +1,11 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.LoginActivity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+
+import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
 
 /**
  * Created by catwong on 3/2/17.

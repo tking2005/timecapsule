@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.LoginActivity;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -20,17 +20,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity.FeedActivity;
+
 /**
  * Created by catwong on 3/2/17.
  */
 
-public class SignInFragment extends Fragment {
+public class SignUpFragment extends Fragment {
 
-    private static final String TAG = SignInFragment.class.getSimpleName();
+    private static final String TAG = SignUpFragment.class.getSimpleName();
     private View mRoot;
-    private ImageView iv_signin_bottom;
-    private EditText et_signin_email;
-    private EditText et_signin_password;
+    private ImageView iv_signup_bottom;
+    private EditText et_signup_email;
+    private EditText et_signup_password;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -38,6 +41,7 @@ public class SignInFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -58,20 +62,19 @@ public class SignInFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        mRoot = inflater.inflate(R.layout.fragment_sign_in, parent, false);
-        setSignIn();
+        mRoot = inflater.inflate(R.layout.fragment_sign_up, parent, false);
+        setSignUp();
         return mRoot;
     }
 
-
-    private void setSignIn() {
-        et_signin_email = (EditText) mRoot.findViewById(R.id.et_login_email);
-        et_signin_password = (EditText) mRoot.findViewById(R.id.et_login_password);
-        iv_signin_bottom = (ImageView) mRoot.findViewById(R.id.iv_signin_bottom);
-        iv_signin_bottom.setOnClickListener(new View.OnClickListener() {
+    private void setSignUp() {
+        et_signup_email = (EditText) mRoot.findViewById(R.id.et_signup_email);
+        et_signup_password = (EditText) mRoot.findViewById(R.id.et_signup_password);
+        iv_signup_bottom = (ImageView) mRoot.findViewById(R.id.iv_signup_bottom);
+        iv_signup_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSignInCredentials();
+                setSignUpCredentials();
             }
         });
     }
@@ -92,38 +95,37 @@ public class SignInFragment extends Fragment {
         }
     }
 
-    private void setSignInCredentials() {
-        signIn(et_signin_email.getText().toString(), et_signin_password.getText().toString());
+    private void goSignUp() {
+        Intent intent = new Intent(getActivity(), FeedActivity.class);
+        SignUpFragment.this.startActivity(intent);
     }
 
-
-    private void goSignIn() {
-        Intent intent = new Intent(getActivity(), SignInActivity.class);
-        SignInFragment.this.startActivity(intent);
+    private void setSignUpCredentials() {
+        createAccount(et_signup_email.getText().toString(), et_signup_password.getText().toString());
     }
 
-
-    private void signIn(String email, String password) {
-        Log.d(TAG, "signIn:" + email);
+    private void createAccount(String email, String password) {
+        Log.d(TAG, "createAccount:" + email);
+        Toast.makeText(getActivity(), "New Account Created", Toast.LENGTH_SHORT).show();
         if (!validateForm()) {
             return;
         }
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Signing In", Toast.LENGTH_SHORT).show();
-                            goSignIn();
+                            Toast.makeText(getActivity(), "Account Created", Toast.LENGTH_SHORT).show();
+                            goSignUp();
                         }
 
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithEmail", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed. Try Again.",
+                            Toast.makeText(getActivity(), "Authentication Failed. Try Again.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -134,23 +136,26 @@ public class SignInFragment extends Fragment {
     private boolean validateForm() {
         boolean valid = true;
 
-        String email = et_signin_email.getText().toString();
+        String email = et_signup_email.getText().toString();
+
         if (TextUtils.isEmpty(email)) {
-            et_signin_email.setError("Required.");
+            et_signup_email.setError("Required.");
             valid = false;
         } else {
-            et_signin_email.setError(null);
+            et_signup_email.setError(null);
         }
 
-        String password = et_signin_password.getText().toString();
+        String password = et_signup_password.getText().toString();
+
         if (TextUtils.isEmpty(password)) {
-            et_signin_password.setError("Required.");
+            et_signup_password.setError("Required.");
             valid = false;
         } else {
-            et_signin_password.setError(null);
+            et_signup_password.setError(null);
         }
 
         return valid;
     }
+
 
 }
