@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity;
 
 import android.app.Fragment;
 import android.support.annotation.Nullable;
