@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "596452081681",
+    "firebase_url": "https://timecapsule-8b809.firebaseio.com",
+    "project_id": "timecapsule-8b809",
+    "storage_bucket": "timecapsule-8b809.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596452081681:android:41b178f895bb2305",
+        "android_client_info": {
+          "package_name": "nyc.c4q.hakeemsackes_bramble.timecapsule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596452081681-1smq38edp5i714dv6o7pdud4rvh4358h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nyc.c4q.hakeemsackes_bramble.timecapsule",
+            "certificate_hash": "70f0415126091ec0379e154e68a8cd4fd1eb8abc"
+          }
+        },
+        {
+          "client_id": "596452081681-vsotdcu6k95pr1nd941md7hj3jbt271e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWlKm52H3XRYQI_vtvlBzFRE-RW9Sxeks"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596452081681-vsotdcu6k95pr1nd941md7hj3jbt271e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
