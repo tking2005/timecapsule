@@ -19,8 +19,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".loginactivity.LoginActivity">
 
-        </activity>
-        <activity android:name=".hakeem.CameraActivityHsb">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key1" />
@@ -32,6 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".feedactivity.FeedActivity" />
+        <activity android:name=".hakeem.CameraActivityHsb"/>
         <activity android:name=".GoogleMapsActivity" />
     </application>
 
