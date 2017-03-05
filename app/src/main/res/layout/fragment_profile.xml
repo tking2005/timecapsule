@@ -18,7 +18,7 @@
         android:gravity="center"
         android:text="heycatwonton"
         android:textStyle="bold"
-        app:layout_heightPercent="10%" />
+        app:layout_heightPercent="8%" />
 
     <ImageView
         android:id="@+id/iv_profile_photo"

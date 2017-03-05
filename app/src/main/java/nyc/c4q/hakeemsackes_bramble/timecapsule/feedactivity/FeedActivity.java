@@ -2,6 +2,7 @@ package nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -59,7 +60,6 @@ public class FeedActivity extends AppCompatActivity {
                     case R.id.action_profile:
                         setProfileFragment();
                         break;
-
                 }
                 return true;
             }
