@@ -35,7 +35,8 @@ import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
  * Created by hakeemsackes-bramble on 2/28/17.
  */
 
-public class CameraActivityHsb extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity {
+
     CameraManager cameraManager;
     TextureView textureView;
     TextureView.SurfaceTextureListener mSurfaceTextureListener = new TextureView.SurfaceTextureListener() {
