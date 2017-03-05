@@ -1,8 +1,12 @@
 package nyc.c4q.hakeemsackes_bramble.timecapsule;
 
+import android.Manifest;
 import android.app.Fragment;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -20,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class SearchFragment extends Fragment implements OnMapReadyCallback {
 
+    MapView mMapView;
     private View mRoot;
     private GoogleMap mMap;
 
@@ -35,9 +41,9 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         MapFragment mapFragment = (MapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
         return mRoot;
     }
+
 
     /**
      * Manipulates the map once available.
@@ -52,10 +58,25 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng newyork = new LatLng(40.7128, -73.985428); //40.7128° N, -74.0059° W
-        mMap.addMarker(new MarkerOptions().position(newyork).title("Marker in New York"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(newyork));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+            LatLng newyork = new LatLng(40.7128,  -73.985428); //40.7128° N, -74.0059° W
+            mMap.addMarker(new MarkerOptions().position(newyork).title("Marker in New York"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(newyork));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+                LatLng newyork = new LatLng(40.7128,  -73.985428); //40.7128° N, -74.0059° W
+                mMap.addMarker(new MarkerOptions().position(newyork).title("Marker in New York"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(newyork));
+                mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+            }
+        }
+
+
     }
 }
