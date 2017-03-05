@@ -1,7 +1,6 @@
 package nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import nyc.c4q.hakeemsackes_bramble.timecapsule.AddMediaFragment;
-import nyc.c4q.hakeemsackes_bramble.timecapsule.GoogleMapsActivity;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.NotificationsFragment;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.ProfileFragment;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
@@ -50,7 +48,6 @@ public class FeedActivity extends AppCompatActivity {
                         setFeedFragment();
                         break;
                     case R.id.action_search:
-                        goToMap();
                         setSearchFragment();
                         break;
                     case R.id.action_add:
@@ -68,13 +65,6 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    private void goToMap() {
-        Intent intent = new Intent(getApplicationContext(), GoogleMapsActivity.class);
-        startActivity(intent);
-    }
-
 
     private void setFeedFragment() {
         getFragmentManager()
