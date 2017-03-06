@@ -24,10 +24,10 @@
         android:layout_marginTop="51dp"
         android:src="@drawable/cassette_icon" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+    <SeekBar
+        android:id="@+id/seek_bar"
         android:layout_width="match_parent"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_audio_cassette"
         android:layout_marginBottom="21dp" />
@@ -36,7 +36,7 @@
         android:id="@+id/iv_audio_record"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_below="@id/progressBar"
+        android:layout_below="@id/seek_bar"
         android:layout_marginBottom="21dp"
         android:gravity="center_horizontal"
         android:src="@drawable/ic_fiber_manual_record_black_48dp"
@@ -47,7 +47,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/progressBar"
+        android:layout_below="@+id/seek_bar"
         android:layout_marginBottom="21dp"
         android:gravity="center_horizontal"
         android:src="@drawable/ic_stop_black_48dp"
@@ -71,6 +71,8 @@
         android:gravity="center_horizontal"
         android:src="@drawable/ic_stop_black_48dp"
         app:layout_widthPercent="50%" />
+
+
 
 
 </android.support.percent.PercentRelativeLayout>
