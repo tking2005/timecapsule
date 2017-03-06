@@ -7,10 +7,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import nyc.c4q.hakeemsackes_bramble.timecapsule.hakeem.CameraActivity;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.audioactivity.AudioFragment;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.cameraactivity.CameraActivity;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.FeedFragment;
 
 /**
  * Created by catwong on 3/4/17.
@@ -19,7 +20,8 @@ import nyc.c4q.hakeemsackes_bramble.timecapsule.hakeem.CameraActivity;
 public class AddMediaFragment extends Fragment {
 
     private View mRoot;
-    private ImageView ib_camera;
+    private ImageView iv_camera;
+    private ImageView iv_audio;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,15 +34,17 @@ public class AddMediaFragment extends Fragment {
         mRoot = inflater.inflate(R.layout.fragment_add_media, parent, false);
         setViews();
         clickCamera();
+        clickAudio();
         return mRoot;
     }
 
     private void setViews(){
-        ib_camera = (ImageView) mRoot.findViewById(R.id.ib_camera);
+        iv_camera = (ImageView) mRoot.findViewById(R.id.iv_camera);
+        iv_audio = (ImageView) mRoot.findViewById(R.id.iv_audio);
     }
 
     private void clickCamera(){
-        ib_camera.setOnClickListener(new View.OnClickListener() {
+        iv_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToCamera();
@@ -52,5 +56,23 @@ public class AddMediaFragment extends Fragment {
         Intent intent = new Intent(getActivity(), CameraActivity.class);
         AddMediaFragment.this.startActivity(intent);
     }
+
+    private void clickAudio(){
+        iv_audio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAudio();
+            }
+        });
+    }
+
+    private void goToAudio() {
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container_main, new AudioFragment())
+                    .commit();
+    }
+
+
 
 }
