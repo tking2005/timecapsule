@@ -55,7 +55,7 @@
     <ImageView
         android:id="@+id/iv_profile_tc_created"
         android:layout_below="@id/bt_edit_profile"
-        android:src="@drawable/tc_bw"
+        android:src="@drawable/timecapsule_bw2"
         app:layout_heightPercent="5%"
         app:layout_widthPercent="33.33%" />
 
@@ -83,7 +83,7 @@
         android:id="@+id/iv_profile_tc_opened"
         android:layout_below="@id/bt_edit_profile"
         android:layout_toRightOf="@id/iv_profile_tc_created"
-        android:src="@drawable/tc_bw"
+        android:src="@drawable/timecapsule_bw2"
         app:layout_heightPercent="5%"
         app:layout_widthPercent="33.33%" />
 
@@ -111,7 +111,7 @@
         android:id="@+id/iv_profile_tc_unopened"
         android:layout_below="@id/bt_edit_profile"
         android:layout_toRightOf="@id/iv_profile_tc_opened"
-        android:src="@drawable/tc_bw"
+        android:src="@drawable/timecapsule_bw2"
         app:layout_heightPercent="5%"
         app:layout_widthPercent="33.33%" />
 
