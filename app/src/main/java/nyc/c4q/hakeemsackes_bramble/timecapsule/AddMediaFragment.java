@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import nyc.c4q.hakeemsackes_bramble.timecapsule.audioactivity.AudioFragment;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.audioactivity.AudioFragment2;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.cameraactivity.CameraActivity;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.FeedFragment;
 
@@ -69,7 +70,7 @@ public class AddMediaFragment extends Fragment {
     private void goToAudio() {
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.container_main, new AudioFragment())
+                    .replace(R.id.container_main, new AudioFragment2())
                     .commit();
     }
 
