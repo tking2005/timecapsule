@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.hakeem;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.cameraactivity;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,9 @@ import java.util.List;
 
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
 
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 /**
  * Created by hakeemsackes-bramble on 2/28/17.
  */
@@ -39,6 +43,42 @@ public class CameraActivity extends AppCompatActivity {
 
     CameraManager cameraManager;
     TextureView textureView;
+    CameraDevice cameraDevice;
+    CaptureRequest.Builder mPreviewCaptureReqBuilder;
+    private CaptureRequest mPreviewCapturereq;
+    private CameraCaptureSession mCameraCaptureSession;
+    private CameraCaptureSession.CaptureCallback msessionCaptureCallback
+            = new CaptureCallback() {
+        @Override
+        public void onCaptureStarted(CameraCaptureSession session, CaptureRequest request, long timestamp, long frameNumber) {
+            super.onCaptureStarted(session, request, timestamp, frameNumber);
+        }
+    };
+    private Size mPrevSize;
+
+
+    CameraDevice.StateCallback camDeviceStateCallBack = new CameraDevice.StateCallback() {
+        @Override
+        public void onOpened(CameraDevice camera) {
+            cameraDevice = camera;
+            //Toast.makeText(getApplicationContext(), "Camera Device Opened", Toast.LENGTH_SHORT).show();
+            createCamPrevSession();
+        }
+
+        @Override
+        public void onDisconnected(CameraDevice camera) {
+            cameraDevice = null;
+            camera.close();
+        }
+
+        @Override
+        public void onError(CameraDevice camera, int error) {
+            cameraDevice = null;
+            camera.close();
+
+        }
+    };
+    private String mCameraId;
     TextureView.SurfaceTextureListener mSurfaceTextureListener = new TextureView.SurfaceTextureListener() {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -70,7 +110,7 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.camera_activity_hsb);
+        setContentView(R.layout.activity_camera);
         textureView = (TextureView) findViewById(R.id.camera_view);
         Log.d("stuff on create", "onCreate: ");
         cameraSetup(textureView.getWidth(), textureView.getHeight());
@@ -94,41 +134,6 @@ public class CameraActivity extends AppCompatActivity {
         cameraManager.openCamera(mCameraId, camDeviceStateCallBack, null);
 
     }
-
-    CameraDevice cameraDevice;
-    CameraDevice.StateCallback camDeviceStateCallBack = new CameraDevice.StateCallback() {
-        @Override
-        public void onOpened(CameraDevice camera) {
-            cameraDevice = camera;
-            //Toast.makeText(getApplicationContext(), "Camera Device Opened", Toast.LENGTH_SHORT).show();
-            createCamPrevSession();
-        }
-
-        @Override
-        public void onDisconnected(CameraDevice camera) {
-            cameraDevice = null;
-            camera.close();
-        }
-
-        @Override
-        public void onError(CameraDevice camera, int error) {
-            cameraDevice = null;
-            camera.close();
-
-        }
-    };
-    private CaptureRequest mPreviewCapturereq;
-    CaptureRequest.Builder mPreviewCaptureReqBuilder;
-    private CameraCaptureSession mCameraCaptureSession;
-    private CameraCaptureSession.CaptureCallback msessionCaptureCallback
-            = new CaptureCallback() {
-        @Override
-        public void onCaptureStarted(CameraCaptureSession session, CaptureRequest request, long timestamp, long frameNumber) {
-            super.onCaptureStarted(session, request, timestamp, frameNumber);
-        }
-    };
-    private Size mPrevSize;
-    private String mCameraId;
 
 
     @Override

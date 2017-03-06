@@ -25,7 +25,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class SearchFragment extends Fragment implements OnMapReadyCallback {
 
-    MapView mMapView;
     private View mRoot;
     private GoogleMap mMap;
 
@@ -61,7 +60,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-            LatLng newyork = new LatLng(40.7128,  -73.985428); //40.7128° N, -74.0059° W
+            LatLng newyork = new LatLng(40.7128, -73.985428); //40.7128° N, -74.0059° W
             mMap.addMarker(new MarkerOptions().position(newyork).title("Marker in New York"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(newyork));
             mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
@@ -70,7 +69,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
             if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
-                LatLng newyork = new LatLng(40.7128,  -73.985428); //40.7128° N, -74.0059° W
+                LatLng newyork = new LatLng(40.7128, -73.985428); //40.7128° N, -74.0059° W
                 mMap.addMarker(new MarkerOptions().position(newyork).title("Marker in New York"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(newyork));
                 mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
