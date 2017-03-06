@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
-public class AudioFragment extends Fragment {
+public class AudioFragment extends Fragment implements MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = "AUDIO FRAGMENT";
     Random random;
@@ -36,7 +37,7 @@ public class AudioFragment extends Fragment {
     private View mRoot;
     private MediaRecorder mRecorder;
     private MediaPlayer mPlayer;
-    private ProgressBar progressBar;
+    private SeekBar seekBar;
     private ImageView iv_audio_record;
     private ImageView iv_audio_stop_record;
     private ImageView iv_audio_play;
@@ -81,10 +82,11 @@ public class AudioFragment extends Fragment {
 
     public void setMaxRecord(){
         mRecorder.setMaxDuration(MAX_DURATION); //supposing u want to give maximum length of 60 seconds
-        progressBar.setMax(MAX_DURATION); //supposing u want to give maximum length of 60 seconds
-        progressBar.setProgress(0);
+        seekBar.setMax(MAX_DURATION); //supposing u want to give maximum length of 60 seconds
+        seekBar.setProgress(0);
         startProgress();
     }
+
 
     public void startProgress(){
             timer.schedule(new TimerTask() {
@@ -118,6 +120,7 @@ public class AudioFragment extends Fragment {
         iv_audio_stop_record = (ImageView) mRoot.findViewById(R.id.iv_audio_stop_record);
         iv_audio_play = (ImageView) mRoot.findViewById(R.id.iv_audio_play);
         iv_audio_stop = (ImageView) mRoot.findViewById(R.id.iv_audio_stop);
+        seekBar = (SeekBar) mRoot.findViewById(R.id.seek_bar);
     }
 
     public void setRecord() {
@@ -137,6 +140,7 @@ public class AudioFragment extends Fragment {
                             CreateRandomAudioFileName(5) + "AudioRecording.3gp";
 
             MediaRecorderReady();
+            setMaxRecord();
 
             try {
                 mRecorder.prepare();
@@ -251,6 +255,25 @@ public class AudioFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }
 
 
