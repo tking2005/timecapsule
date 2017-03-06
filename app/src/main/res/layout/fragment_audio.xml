@@ -20,17 +20,26 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="31dp"
+        android:layout_marginBottom="11dp"
         android:layout_marginTop="51dp"
         android:src="@drawable/cassette_icon" />
 
     <SeekBar
         android:id="@+id/seek_bar"
-        android:layout_width="match_parent"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_width="250dp"
+        android:progressTint="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_audio_cassette"
-        android:layout_marginBottom="21dp" />
+        android:layout_below="@+id/tv_audio_time"
+        android:layout_marginBottom="31dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/tv_audio_time"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="#000000"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_audio_cassette"/>
 
     <ImageView
         android:id="@+id/iv_audio_record"
@@ -57,20 +66,21 @@
         android:id="@+id/iv_audio_play"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_below="@id/iv_audio_record"
         android:gravity="center_horizontal"
         android:src="@drawable/ic_play_arrow_black_48dp"
-        app:layout_widthPercent="50%" />
+        app:layout_widthPercent="50%"
+        android:layout_below="@+id/iv_audio_record"
+        android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:id="@+id/iv_audio_stop"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_below="@id/iv_audio_stop_record"
-        android:layout_toRightOf="@id/iv_audio_play"
-        android:gravity="center_horizontal"
-        android:src="@drawable/ic_stop_black_48dp"
-        app:layout_widthPercent="50%" />
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_audio_stop"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_below="@id/iv_audio_stop_record"-->
+        <!--android:layout_toRightOf="@id/iv_audio_play"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:src="@drawable/ic_stop_black_48dp"-->
+        <!--app:layout_widthPercent="50%" />-->
 
 
 

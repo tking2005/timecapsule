@@ -1,37 +1,38 @@
 package nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity;
 
-import android.app.Fragment;
+import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import nyc.c4q.hakeemsackes_bramble.timecapsule.AddMediaFragment;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.NotificationsFragment;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.ProfileFragment;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.SearchFragment;
-import nyc.c4q.hakeemsackes_bramble.timecapsule.cameraactivity.CameraActivity;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+
 public class FeedActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
-
-
+    private static final int REQUEST_LOCATION = 201;
+    private BottomNavigationView bottomNavigationView;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        requestLocationPermission();
         requestAudioPermission();
         setBottomNav();
         setBottomNavButtons();
@@ -116,6 +117,17 @@ public class FeedActivity extends AppCompatActivity {
                 String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO}, REQUEST_RECORD_AUDIO_PERMISSION);
     }
 
+    private void requestLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Check Permissions Now
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION);
+        }
+    }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -126,18 +138,30 @@ public class FeedActivity extends AppCompatActivity {
                             PackageManager.PERMISSION_GRANTED;
                     boolean RecordPermission = grantResults[1] ==
                             PackageManager.PERMISSION_GRANTED;
+                }
+                break;
 
-//                    if (StoragePermission && RecordPermission) {
-//                        Toast.makeText(getApplicationContext(), "Permission Granted",
-//                                Toast.LENGTH_LONG).show();
-//                    } else {
-//                        Toast.makeText(getApplicationContext(), "Permission Denied",
-//                                Toast.LENGTH_LONG).show();
-//                    }
+            case REQUEST_LOCATION:
+                if (grantResults.length == 1
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // We can now safely use the API we requested access to
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                } else {
+                    // Permission was denied or request was cancelled
                 }
                 break;
         }
 
     }
-
+    
 }

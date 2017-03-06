@@ -18,6 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key1" />
@@ -29,10 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".feedactivity.FeedActivity" />
         <activity android:name=".cameraactivity.CameraActivity" />
         <activity android:name=".GoogleMapsActivity" />
-        <activity android:name=".audioactivity.AudioFragment"></activity>
     </application>
 
 </manifest>
