@@ -40,7 +40,7 @@ public class AudioFragment2 extends Fragment {
     private ImageView iv_audio_play;
     private TextView tv_audio_time;
     private int MAX_DURATION = 15000;
-    private int MAX_SECONDS = 15;
+    private int MAX_SECONDS = 16;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class AudioFragment2 extends Fragment {
     }
 
     public void setMaxSeekBar(){
-        mSeekBar.setMax(MAX_SECONDS);
+        mSeekBar.setMax(15);
     }
 
 
