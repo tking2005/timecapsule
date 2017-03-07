@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_edit_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_edit_profile_cancel"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorAccent2"
+        android:gravity="center"
+        android:text="Cancel"
+        app:layout_heightPercent="8%"
+        app:layout_widthPercent="33.33%" />
+
+    <TextView
+        android:id="@+id/tv_edit_profile_top"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv_edit_profile_cancel"
+        android:background="@color/colorAccent2"
+        android:gravity="center"
+        android:text="Edit Profile"
+        android:textStyle="bold"
+        app:layout_heightPercent="8%"
+        app:layout_widthPercent="33.33%" />
+
+
+    <TextView
+        android:id="@+id/tv_edit_profile_done"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv_edit_profile_top"
+        android:background="@color/colorAccent2"
+        android:gravity="center"
+        android:text="Done"
+        app:layout_heightPercent="8%"
+        app:layout_widthPercent="33.33%" />
+
+
+    <ImageView
+        android:id="@+id/iv_edit_profile_photo"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/tv_edit_profile_top"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:src="@drawable/profile_cat" />
+
+    <TextView
+        android:id="@+id/tv_edit_profile_change_photo"
+        android:layout_width="match_parent"
+        android:layout_below="@id/iv_edit_profile_photo"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="Change Profile Photo"
+        android:textColor="@color/colorPrimary"
+        app:layout_heightPercent="8%" />
+
+
+    <ImageView
+        android:id="@+id/iv_edit_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@id/tv_edit_profile_change_photo"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="16dp"
+        android:src="@drawable/ic_face_black_24dp" />
+
+    <EditText
+        android:id="@+id/et_edit_profile_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_edit_profile_name"
+        android:layout_alignTop="@id/iv_edit_profile_name"
+        android:layout_marginEnd="24dp"
+        android:layout_toRightOf="@id/iv_edit_profile_name"
+        android:hint="Name"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="#314362"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/iv_edit_profile_username"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/iv_edit_profile_name"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/et_edit_profile_name"
+        android:paddingLeft="16dp"
+        android:src="@drawable/ic_person_black_24dp" />
+
+    <EditText
+        android:id="@+id/et_edit_profile_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_edit_profile_username"
+        android:layout_alignTop="@id/iv_edit_profile_username"
+        android:layout_marginEnd="24dp"
+        android:layout_toRightOf="@id/iv_edit_profile_username"
+        android:hint="Username"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="#314362"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/iv_edit_profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@id/iv_edit_profile_username"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="16dp"
+        android:src="@drawable/ic_email_black_24dp_profile"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/et_edit_profile_username" />
+
+    <EditText
+        android:id="@+id/et_edit_profile_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_edit_profile_email"
+        android:layout_alignTop="@id/iv_edit_profile_email"
+        android:layout_marginEnd="24dp"
+        android:layout_toRightOf="@id/iv_edit_profile_email"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:textColor="#314362"
+        android:textSize="13sp" />
+
+
+</android.support.percent.PercentRelativeLayout>

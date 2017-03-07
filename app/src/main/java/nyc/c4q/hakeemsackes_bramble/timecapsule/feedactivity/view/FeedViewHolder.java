@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity.view;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

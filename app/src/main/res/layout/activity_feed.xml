@@ -4,7 +4,7 @@
     android:id="@+id/activity_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity.FeedActivity">
+    tools:context="nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.FeedActivity">
 
     <FrameLayout
         android:id="@+id/container_main"

@@ -1,8 +1,7 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity;
+package nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity;
 
 import android.app.Fragment;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity.controller.FeedAdapter;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.controller.FeedAdapter;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
 
 

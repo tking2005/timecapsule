@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
-import nyc.c4q.hakeemsackes_bramble.timecapsule.FeedActivity.FeedActivity;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.FeedActivity;
 
 /**
  * Created by catwong on 3/2/17.
