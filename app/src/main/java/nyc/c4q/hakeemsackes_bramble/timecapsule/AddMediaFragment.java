@@ -7,10 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-
-import nyc.c4q.hakeemsackes_bramble.timecapsule.hakeem.CameraActivity;
 
 /**
  * Created by catwong on 3/4/17.
