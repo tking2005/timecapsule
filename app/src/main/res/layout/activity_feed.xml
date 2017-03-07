@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="start"
         app:itemBackground="@color/colorPrimaryDark"
-        app:itemIconTint="@color/colorAccent"
+        app:itemIconTint="@color/colorAccent2"
         app:menu="@menu/bottom_nav_menu" >
     </android.support.design.widget.BottomNavigationView>
 
