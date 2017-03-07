@@ -30,8 +30,9 @@ public class AudioFragment2 extends Fragment {
     Handler handler;
     MediaRecorder mRecorder;
     private String fileName;
-    Boolean isRecording;
-    int recordTime, playTime;
+    private Boolean isRecording;
+    int recordTime;
+    int playTime;
     SeekBar mSeekBar;
     MediaPlayer mPlayer;
     private ImageView iv_audio_record;
@@ -39,7 +40,7 @@ public class AudioFragment2 extends Fragment {
     private ImageView iv_audio_play;
     private TextView tv_audio_time;
     private int MAX_DURATION = 15000;
-    private int MAX_SECONDS = 16;
+    private int MAX_SECONDS = 15;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

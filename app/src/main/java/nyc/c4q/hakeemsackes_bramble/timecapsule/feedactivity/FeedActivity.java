@@ -13,7 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import nyc.c4q.hakeemsackes_bramble.timecapsule.AddMediaFragment;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.NotificationsFragment;
-import nyc.c4q.hakeemsackes_bramble.timecapsule.ProfileFragment;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.profilefragment.ProfileFragment;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.SearchFragment;
 
@@ -163,5 +163,5 @@ public class FeedActivity extends AppCompatActivity {
         }
 
     }
-    
+
 }
