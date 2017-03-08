@@ -19,9 +19,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.FeedActivity;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.profilefragment.EditProfileFragment;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.profilefragment.ProfileActivity;
+import nyc.c4q.hakeemsackes_bramble.timecapsule.profilefragment.model.User;
 
 /**
  * Created by catwong on 3/2/17.
@@ -34,6 +39,7 @@ public class SignUpFragment extends Fragment {
     private ImageView iv_signup_bottom;
     private EditText et_signup_email;
     private EditText et_signup_password;
+    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -63,6 +69,8 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         mRoot = inflater.inflate(R.layout.fragment_sign_up, parent, false);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
         setSignUp();
         return mRoot;
     }
@@ -96,7 +104,7 @@ public class SignUpFragment extends Fragment {
     }
 
     private void goSignUp() {
-        Intent intent = new Intent(getActivity(), FeedActivity.class);
+        Intent intent = new Intent(getActivity(), ProfileActivity.class);
         SignUpFragment.this.startActivity(intent);
     }
 
@@ -120,6 +128,7 @@ public class SignUpFragment extends Fragment {
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (task.isSuccessful()) {
+                            onAuthSuccess(task.getResult().getUser());
                             Toast.makeText(getActivity(), "Account Created", Toast.LENGTH_SHORT).show();
                             goSignUp();
                         }
@@ -155,6 +164,17 @@ public class SignUpFragment extends Fragment {
         }
 
         return valid;
+    }
+
+    private void onAuthSuccess(FirebaseUser user) {
+        // Write new user
+        writeNewUser(user.getUid(), user.getEmail());
+    }
+
+    private void writeNewUser(String userID, String email){
+        User user = new User(email);
+        mDatabase.child("users").child(userID).setValue(user);
+
     }
 
 

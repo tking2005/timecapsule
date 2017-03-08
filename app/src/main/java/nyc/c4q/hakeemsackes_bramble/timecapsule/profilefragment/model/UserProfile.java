@@ -9,6 +9,7 @@ import java.util.List;
 public class UserProfile {
 
     List<User> users;
+    List<Capsule> capsules;
 
     public UserProfile(){}
 
@@ -22,5 +23,13 @@ public class UserProfile {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public List<Capsule> getCapsules() {
+        return capsules;
+    }
+
+    public void setCapsules(List<Capsule> capsules) {
+        this.capsules = capsules;
     }
 }

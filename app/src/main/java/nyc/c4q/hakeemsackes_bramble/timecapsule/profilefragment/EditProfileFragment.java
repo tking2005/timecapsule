@@ -4,26 +4,19 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.List;
 
 import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.profilefragment.model.User;
-import nyc.c4q.hakeemsackes_bramble.timecapsule.profilefragment.model.UserProfile;
 
 /**
  * Created by catwong on 3/6/17.
@@ -96,12 +89,11 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 setUserData();
-                setDone();
             }
         });
     }
 
-    public void setDone(){
+    public void setDone() {
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container_main, new ProfileFragment())
@@ -128,40 +120,44 @@ public class EditProfileFragment extends Fragment {
             return;
         }
 
-        final String userId = String.valueOf(getId());
-        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get user value
-                        User user = dataSnapshot.getValue(User.class);
 
-                        // [START_EXCLUDE]
-                        if (user == null) {
-                            // User is null, error out
-                            writeNewUser(name, username, email);
-//                            Log.e(TAG, "User " + userId + " is unexpectedly null");
-//                            Toast.makeText(getActivity(),
-//                                    "Error: could not fetch user.",
-//                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            // Write new post
-                            writeNewUser(name, username, email);
-                        }
+        writeNewUser(name, username, email);
 
-                        // Finish this Activity, back to the stream
-//                        finish();
-                        // [END_EXCLUDE]
-                    }
+//        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
+//                new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        // Get user value
+//                        User user = dataSnapshot.getValue(User.class);
+//
+//                        // [START_EXCLUDE]
+//                        if (user == null) {
+//                            // User is null, error out
+//                            writeNewUser(name, username, email);
+//                        } else {
+//                            // Write new post
+//                            writeNewUser(name, username, email);
+//                        }
+//
+//                        // Finish this Activity, back to the stream
+////                        finish();
+//                        // [END_EXCLUDE]
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+//                        // [START_EXCLUDE]
+//                        // [END_EXCLUDE]
+//                    }
+//                });
+//        // [END single_value_read]
+//    }
+    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-                        // [START_EXCLUDE]
-                        // [END_EXCLUDE]
-                    }
-                });
-        // [END single_value_read]
+    private void onAuthSuccess(FirebaseUser user) {
+        // Write new user
+        writeNewUser(user.getUid(), user.getDisplayName(), user.getEmail());
     }
 
     private void writeNewUser(String name, String username, String email) {

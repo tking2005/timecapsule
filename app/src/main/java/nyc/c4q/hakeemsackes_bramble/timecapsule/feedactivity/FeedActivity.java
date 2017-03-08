@@ -26,7 +26,6 @@ public class FeedActivity extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static final int REQUEST_LOCATION = 201;
     private BottomNavigationView bottomNavigationView;
-    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
