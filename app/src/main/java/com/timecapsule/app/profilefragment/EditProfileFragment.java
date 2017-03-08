@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.timecapsule.app.profilefragment.model.User;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -104,7 +109,7 @@ public class EditProfileFragment extends Fragment {
         final String name = et_name.getText().toString();
         final String username = et_username.getText().toString();
         final String email = et_email.getText().toString();
-
+        final String userId = getUid();
         if (TextUtils.isEmpty(name)) {
             et_name.setError(REQUIRED);
             return;
@@ -121,48 +126,50 @@ public class EditProfileFragment extends Fragment {
         }
 
 
-        writeNewUser(name, username, email);
+        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user value
+                        User user = dataSnapshot.getValue(User.class);
 
-//        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
-//                new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        // Get user value
-//                        User user = dataSnapshot.getValue(User.class);
-//
-//                        // [START_EXCLUDE]
-//                        if (user == null) {
-//                            // User is null, error out
-//                            writeNewUser(name, username, email);
-//                        } else {
-//                            // Write new post
-//                            writeNewUser(name, username, email);
-//                        }
-//
-//                        // Finish this Activity, back to the stream
-////                        finish();
-//                        // [END_EXCLUDE]
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
-//                        // [START_EXCLUDE]
-//                        // [END_EXCLUDE]
-//                    }
-//                });
-//        // [END single_value_read]
+                        // [START_EXCLUDE]
+                        if (user == null) {
+                            // User is null, error out
+                            writeNewUser(name, username, email, userId);
+                        } else {
+                            // Write new post
+                            writeNewUser(name, username, email, userId);
+                        }
+
+                        // Finish this Activity, back to the stream
+//                        finish();
+                        // [END_EXCLUDE]
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                        // [START_EXCLUDE]
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END single_value_read]
+    }
+
+
+//    private void onAuthSuccess(FirebaseUser user) {
+//        // Write new user
+//        writeNewUser(user.getUid(), user.getDisplayName(), user.getEmail());
 //    }
+
+    private void writeNewUser(String name, String username, String email, String userId) {
+        User user = new User(name, username, email, userId);
+        mDatabase.child("users").child(userId).setValue(user);
     }
 
-    private void onAuthSuccess(FirebaseUser user) {
-        // Write new user
-        writeNewUser(user.getUid(), user.getDisplayName(), user.getEmail());
-    }
-
-    private void writeNewUser(String name, String username, String email) {
-        User user = new User(name, username, email);
-        mDatabase.child("users").child(username).setValue(user);
+    public String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
 }
