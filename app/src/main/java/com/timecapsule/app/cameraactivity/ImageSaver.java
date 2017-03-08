@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.cameraactivity;
+package com.timecapsule.app.cameraactivity;
 
 import android.media.Image;
 
