@@ -32,7 +32,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".feedactivity.FeedActivity" />
-        <activity android:name=".cameraactivity.CameraActivity" />
+        <activity
+            android:name=".cameraactivity.CameraActivity"
+            android:configChanges="keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".GoogleMapsActivity" />
         <activity android:name=".profilefragment.ProfileActivity"></activity>
     </application>

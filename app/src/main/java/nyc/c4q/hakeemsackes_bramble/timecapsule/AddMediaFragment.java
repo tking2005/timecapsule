@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import nyc.c4q.hakeemsackes_bramble.timecapsule.audioactivity.AudioFragment;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.audioactivity.AudioFragment2;
 import nyc.c4q.hakeemsackes_bramble.timecapsule.cameraactivity.CameraActivity;
-import nyc.c4q.hakeemsackes_bramble.timecapsule.feedactivity.FeedFragment;
 
 /**
  * Created by catwong on 3/4/17.
