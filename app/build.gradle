@@ -4,13 +4,20 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "nyc.c4q.hakeemsackes_bramble.timecapsule"
+        applicationId "com.timecapsule.app"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    productFlavors {
+        MainApp {
+            applicationId = "com.timecapsule.app"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -37,6 +44,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.0'
     compile 'com.google.android.gms:play-services-location:10.2.0'
     compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
     testCompile 'junit:junit:4.12'
 }
 

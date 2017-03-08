@@ -25,7 +25,7 @@
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        tools:context="nyc.c4q.hakeemsackes_bramble.timecapsule.GoogleMapsActivity" />
+        tools:context="com.timecapsule.app.timecapsule.com.c4q.hakeemsackes_bramble.timecapsule.GoogleMapsActivity" />
 
 
 </LinearLayout>
