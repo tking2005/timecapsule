@@ -37,6 +37,14 @@
         <activity android:name="com.timecapsule.app.cameraactivity.CameraActivity" />
         <activity android:name="com.timecapsule.app.GoogleMapsActivity" />
         <activity android:name="com.timecapsule.app.profilefragment.ProfileActivity"></activity>
+        <activity android:name=".feedactivity.FeedActivity" />
+        <activity
+            android:name=".cameraactivity.CameraActivity"
+            android:configChanges="keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".GoogleMapsActivity" />
+        <activity android:name=".profilefragment.ProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -23,22 +23,23 @@
         android:id="@+id/iv_camera"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tv_add_media"
+        android:layout_marginStart="69dp"
         android:clickable="true"
         android:gravity="center"
-        android:src="@drawable/ic_photo_camera_black_48dp"
-        android:layout_marginStart="69dp"
-        android:layout_below="@+id/tv_add_media"
-        android:layout_alignParentStart="true" />
+        android:src="@drawable/ic_photo_camera_black_48dp" />
 
     <ImageView
         android:id="@+id/iv_audio"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_below="@id/tv_add_media"
+        android:layout_marginStart="25dp"
         android:clickable="true"
         android:gravity="center"
         android:src="@drawable/cassette_icon"
-        android:layout_marginStart="25dp"
-        android:layout_below="@+id/tv_add_media"
-        android:layout_toEndOf="@+id/iv_camera" />
+        android:layout_toEndOf="@id/iv_camera" />
+
 
 </android.support.percent.PercentRelativeLayout>
