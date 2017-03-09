@@ -49,6 +49,8 @@ public class EditProfileFragment extends Fragment {
     private EditText et_email;
     private SharedPreferences sharedPreferences;
     private DatabaseReference mDatabase;
+    private String name;
+
 
 
     @Override
@@ -61,11 +63,17 @@ public class EditProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         mRoot = inflater.inflate(R.layout.fragment_edit_profile, parent, false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         setViews();
         saveSharedPrefs();
         clickCancel();
         clickDone();
         return mRoot;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     public void setViews() {
@@ -115,7 +123,7 @@ public class EditProfileFragment extends Fragment {
                 .commit();
     }
 
-    private void setUserData() {
+    public void setUserData() {
         final String name = et_name.getText().toString();
         final String username = et_username.getText().toString();
         final String email = et_email.getText().toString();
@@ -142,6 +150,7 @@ public class EditProfileFragment extends Fragment {
         getSharedPreferences(NAME_KEY, "");
         getSharedPreferences(USERNAME_KEY, "");
         getSharedPreferences(EMAIL_KEY, "");
+
 
         mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -191,7 +200,6 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void setSharedPreferences(String key, String value) {
-        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
@@ -202,7 +210,6 @@ public class EditProfileFragment extends Fragment {
     }
 
     public void saveSharedPrefs() {
-        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         if (sharedPreferences.contains(NAME_KEY)) {
             et_name.setText(sharedPreferences.getString(NAME_KEY, ""));
         }
@@ -216,6 +223,5 @@ public class EditProfileFragment extends Fragment {
         }
 
     }
-
 
 }
