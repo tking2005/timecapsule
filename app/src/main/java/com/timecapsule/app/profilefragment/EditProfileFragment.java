@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -63,8 +62,9 @@ public class EditProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         mRoot = inflater.inflate(R.layout.fragment_edit_profile, parent, false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         setViews();
+        saveSharedPrefs();
         clickCancel();
         clickDone();
         return mRoot;
@@ -81,21 +81,6 @@ public class EditProfileFragment extends Fragment {
         et_name = (EditText) mRoot.findViewById(R.id.et_edit_profile_name);
         et_username = (EditText) mRoot.findViewById(R.id.et_edit_profile_username);
         et_email = (EditText) mRoot.findViewById(R.id.et_edit_profile_email);
-    }
-
-    public void saveSharedPrefs() {
-        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(NAME_KEY)) {
-            et_name.setText(sharedPreferences.getString(NAME_KEY, ""));
-        }
-
-        if (sharedPreferences.contains(USERNAME_KEY)) {
-            et_username.setText(sharedPreferences.getString(USERNAME_KEY, ""));
-        }
-
-        if (sharedPreferences.contains(EMAIL_KEY)) {
-            et_email.setText(sharedPreferences.getString(EMAIL_KEY, ""));
-        }
     }
 
 
@@ -156,11 +141,9 @@ public class EditProfileFragment extends Fragment {
         setSharedPreferences(NAME_KEY, name);
         setSharedPreferences(USERNAME_KEY, username);
         setSharedPreferences(EMAIL_KEY, email);
-
-        et_name.setText(sharedPreferences.getString(NAME_KEY,name));
+        getSharedPreferences(NAME_KEY, "");
         getSharedPreferences(USERNAME_KEY, "");
         getSharedPreferences(EMAIL_KEY, "");
-
 
         mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
@@ -195,6 +178,8 @@ public class EditProfileFragment extends Fragment {
                     }
                 });
         // [END single_value_read]
+
+
     }
 
 
@@ -207,16 +192,28 @@ public class EditProfileFragment extends Fragment {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    private void setSharedPreferences(String key, String value){
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    private void setSharedPreferences(String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
     }
 
-    private void getSharedPreferences(String key, String value){
+    private void getSharedPreferences(String key, String value) {
         sharedPreferences.getString(key, value);
     }
 
+    public void saveSharedPrefs() {
+        if (sharedPreferences.contains(NAME_KEY)) {
+            et_name.setText(sharedPreferences.getString(NAME_KEY, ""));
+        }
+
+        if (sharedPreferences.contains(USERNAME_KEY)) {
+            et_username.setText(sharedPreferences.getString(USERNAME_KEY, ""));
+        }
+
+        if (sharedPreferences.contains(EMAIL_KEY)) {
+            et_email.setText(sharedPreferences.getString(EMAIL_KEY, ""));
+        }
+    }
 
 }
