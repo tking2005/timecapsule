@@ -13,13 +13,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.timecapsule.app.profilefragment.model.User;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -32,13 +30,12 @@ import com.timecapsule.app.profilefragment.model.User;
 
 public class EditProfileFragment extends Fragment {
 
-    public static final String MY_PREF = "MY_PREF";
-    public static final String NAME_KEY = "nameKey";
-    public static final String EMAIL_KEY = "emailKey";
-    public static final String USERNAME_KEY = "usernameKey";
     private static final String TAG = "EditProfile";
     private static final String REQUIRED = "Required";
-    boolean isTaken;
+    private String MY_PREF = "MY_PREF";
+    private String NAME_KEY = "nameKey";
+    private String EMAIL_KEY = "emailKey";
+    private String USERNAME_KEY = "usernameKey";
     private View mRoot;
     private TextView tv_cancel;
     private TextView tv_done;
@@ -52,8 +49,7 @@ public class EditProfileFragment extends Fragment {
     private EditText et_email;
     private SharedPreferences sharedPreferences;
     private DatabaseReference mDatabase;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference takenNames;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +61,6 @@ public class EditProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         mRoot = inflater.inflate(R.layout.fragment_edit_profile, parent, false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         setViews();
         saveSharedPrefs();
         clickCancel();
@@ -108,6 +103,7 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 setUserData();
+                Toast.makeText(getActivity(), "DONE", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -195,6 +191,7 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void setSharedPreferences(String key, String value) {
+        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
@@ -205,6 +202,7 @@ public class EditProfileFragment extends Fragment {
     }
 
     public void saveSharedPrefs() {
+        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         if (sharedPreferences.contains(NAME_KEY)) {
             et_name.setText(sharedPreferences.getString(NAME_KEY, ""));
         }
@@ -216,7 +214,8 @@ public class EditProfileFragment extends Fragment {
         if (sharedPreferences.contains(EMAIL_KEY)) {
             et_email.setText(sharedPreferences.getString(EMAIL_KEY, ""));
         }
-        
+
     }
+
 
 }
