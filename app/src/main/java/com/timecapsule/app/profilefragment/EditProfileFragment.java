@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,12 +30,12 @@ import com.timecapsule.app.profilefragment.model.User;
 
 public class EditProfileFragment extends Fragment {
 
-    public static final String MY_PREF = "MY_PREF";
-    public static final String NAME_KEY = "nameKey";
-    public static final String EMAIL_KEY = "emailKey";
-    public static final String USERNAME_KEY = "usernameKey";
     private static final String TAG = "EditProfile";
     private static final String REQUIRED = "Required";
+    private String MY_PREF = "MY_PREF";
+    private String NAME_KEY = "nameKey";
+    private String EMAIL_KEY = "emailKey";
+    private String USERNAME_KEY = "usernameKey";
     private View mRoot;
     private TextView tv_cancel;
     private TextView tv_done;
@@ -48,7 +49,7 @@ public class EditProfileFragment extends Fragment {
     private EditText et_email;
     private SharedPreferences sharedPreferences;
     private DatabaseReference mDatabase;
-
+    private String name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,11 @@ public class EditProfileFragment extends Fragment {
         clickCancel();
         clickDone();
         return mRoot;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     public void setViews() {
@@ -103,6 +109,7 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 setUserData();
+                Toast.makeText(getActivity(), "DONE", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -114,7 +121,7 @@ public class EditProfileFragment extends Fragment {
                 .commit();
     }
 
-    private void setUserData() {
+    public void setUserData() {
         final String name = et_name.getText().toString();
         final String username = et_username.getText().toString();
         final String email = et_email.getText().toString();
@@ -141,6 +148,7 @@ public class EditProfileFragment extends Fragment {
         getSharedPreferences(NAME_KEY, "");
         getSharedPreferences(USERNAME_KEY, "");
         getSharedPreferences(EMAIL_KEY, "");
+
 
         mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {

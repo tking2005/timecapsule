@@ -10,15 +10,12 @@ public class User {
     public String email;
     public String userId;
 
-    public User() {
-    }
 
+    public User() {}
 
     public User(String email) {
         this.email = email;
-
     }
-
 
     public User(String name, String username, String email, String userId) {
         this.name = name;
