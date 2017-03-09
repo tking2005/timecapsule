@@ -17,9 +17,6 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.timecapsule.app.profilefragment.model.User;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -38,7 +35,6 @@ public class EditProfileFragment extends Fragment {
     public static final String USERNAME_KEY = "usernameKey";
     private static final String TAG = "EditProfile";
     private static final String REQUIRED = "Required";
-    boolean isTaken;
     private View mRoot;
     private TextView tv_cancel;
     private TextView tv_done;
@@ -52,8 +48,7 @@ public class EditProfileFragment extends Fragment {
     private EditText et_email;
     private SharedPreferences sharedPreferences;
     private DatabaseReference mDatabase;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference takenNames;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -216,7 +211,7 @@ public class EditProfileFragment extends Fragment {
         if (sharedPreferences.contains(EMAIL_KEY)) {
             et_email.setText(sharedPreferences.getString(EMAIL_KEY, ""));
         }
-        
+
     }
 
 }
