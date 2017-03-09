@@ -1,6 +1,8 @@
 package com.timecapsule.app.profilefragment;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.AppInviteContent;
@@ -17,8 +20,17 @@ import com.timecapsule.app.R;
 public class ProfileFragment extends Fragment {
 
     private View mRoot;
+    private String MY_PREF = "MY_PREF";
+    private String NAME_KEY = "nameKey";
+    private String EMAIL_KEY = "emailKey";
+    private String USERNAME_KEY = "usernameKey";
+    private String PROFILE_PHOTO_KEY = "profilePhotoKey";
     private Button bt_edit_profile;
     private ImageView iv_add_friend;
+    private ImageView iv_profile_photo;
+    private TextView tv_profile_username;
+    private TextView tv_profile_name;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,17 +42,28 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         mRoot = inflater.inflate(R.layout.fragment_profile, parent, false);
+        sharedPreferences = getActivity().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         setViews();
+        setSharedPrefs();
         clickEditProfile();
         clickAddFriend();
         return mRoot;
     }
 
 
-
     public void setViews() {
         bt_edit_profile = (Button) mRoot.findViewById(R.id.bt_edit_profile);
         iv_add_friend = (ImageView) mRoot.findViewById(R.id.iv_add_friend);
+        iv_profile_photo = (ImageView) mRoot.findViewById(R.id.iv_profile_photo);
+        tv_profile_username = (TextView) mRoot.findViewById(R.id.tv_profile_username);
+        tv_profile_name = (TextView) mRoot.findViewById(R.id.tv_profile_name);
+    }
+
+    public void setSharedPrefs() {
+        String username = sharedPreferences.getString(USERNAME_KEY, "");
+        tv_profile_username.setText(username);
+        String name = sharedPreferences.getString(NAME_KEY, "");
+        tv_profile_name.setText(name);
     }
 
     public void clickEditProfile() {
@@ -82,6 +105,5 @@ public class ProfileFragment extends Fragment {
         AppInviteDialog.show(getActivity(), content);
 
     }
-
 
 }

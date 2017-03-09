@@ -34,6 +34,7 @@
         android:textColor="@color/colorBlack"
         android:text="heycatwonton"
         android:textStyle="bold"
+        android:textSize="17sp"
         app:layout_heightPercent="8%" />
 
     <ImageView
