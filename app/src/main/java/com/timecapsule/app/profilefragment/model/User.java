@@ -1,16 +1,5 @@
 package com.timecapsule.app.profilefragment.model;
 
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import com.google.android.gms.internal.zzbmn;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-
-import java.util.List;
-
 /**
  * Created by catwong on 3/7/17.
  */
@@ -22,15 +11,10 @@ public class User {
     public String userId;
 
 
+    public User() {
 
+    public User(String email) {
 
-
-    public User(){}
-
-
-    public User(String email){
-        this.email = email;
-    }
 
     public User(String name, String username, String email, String userId) {
         this.name = name;
@@ -55,7 +39,19 @@ public class User {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
