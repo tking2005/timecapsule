@@ -17,6 +17,9 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.timecapsule.app.profilefragment.model.User;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -122,7 +125,6 @@ public class EditProfileFragment extends Fragment {
         final String email = et_email.getText().toString();
         final String userId = getUid();
 
-
         if (TextUtils.isEmpty(name)) {
             et_name.setError(REQUIRED);
             return;
@@ -214,6 +216,7 @@ public class EditProfileFragment extends Fragment {
         if (sharedPreferences.contains(EMAIL_KEY)) {
             et_email.setText(sharedPreferences.getString(EMAIL_KEY, ""));
         }
+        
     }
 
 }
