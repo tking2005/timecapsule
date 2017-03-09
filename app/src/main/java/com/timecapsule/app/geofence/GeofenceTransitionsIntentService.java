@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.geofence;
+package com.timecapsule.app.geofence;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -10,14 +10,12 @@ import android.text.TextUtils;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.timecapsule.app.GoogleMapsActivity;
+import com.timecapsule.app.R;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import nyc.c4q.hakeemsackes_bramble.timecapsule.GoogleMapsActivity;
-import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
-
 
 /**
  * Created by tarynking on 3/7/17.

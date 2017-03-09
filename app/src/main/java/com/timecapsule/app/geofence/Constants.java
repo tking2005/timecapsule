@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.geofence;
+package com.timecapsule.app.geofence;
 
 /**
  * Created by tarynking on 3/7/17.

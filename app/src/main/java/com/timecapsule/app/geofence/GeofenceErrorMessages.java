@@ -1,12 +1,11 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.geofence;
+package com.timecapsule.app.geofence;
 
 import android.content.Context;
 import android.content.res.Resources;
 
 import com.google.android.gms.location.GeofenceStatusCodes;
 
-import nyc.c4q.hakeemsackes_bramble.timecapsule.R;
-
+import com.timecapsule.app.R;
 /**
  * Created by tarynking on 3/7/17.
  */
