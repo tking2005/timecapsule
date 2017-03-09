@@ -26,6 +26,7 @@
         android:background="@color/colorAccent2"
         android:gravity="center"
         android:text="Edit Profile"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_heightPercent="8%"
         app:layout_widthPercent="33.33%" />
@@ -46,8 +47,8 @@
 
     <ImageView
         android:id="@+id/iv_edit_profile_photo"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="77dp"
+        android:layout_height="77dp"
         android:layout_below="@+id/tv_edit_profile_top"
         android:layout_centerHorizontal="true"
         android:gravity="center"
