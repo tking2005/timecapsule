@@ -51,8 +51,6 @@ public class EditProfileFragment extends Fragment {
     private DatabaseReference mDatabase;
     private String name;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
