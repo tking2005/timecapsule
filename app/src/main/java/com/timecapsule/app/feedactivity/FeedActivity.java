@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.timecapsule.app.AddMediaFragment;
@@ -24,6 +25,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static final int REQUEST_LOCATION = 201;
+    private static final int REQUEST_CAMERA_PERMISSION = 203;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -31,6 +33,7 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         requestLocationPermission();
+        requestCameraPemission();
         requestAudioPermission();
         setBottomNav();
         setBottomNavButtons();
@@ -108,6 +111,15 @@ public class FeedActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.container_main, new ProfileFragment())
                 .commit();
+    }
+
+    private void requestCameraPemission(){
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+            Log.d("damn", "openCamera: ");
+            return;
+        }
     }
 
     private void requestAudioPermission() {
