@@ -49,7 +49,7 @@ public class EditProfileFragment extends Fragment {
     private static final int TAKE_PICTURE = 1;
     private static final int SELECT_PICTURE = 2;
     private static final String TEMP_IMAGE_NAME = "tempImage";
-    Bitmap bitmap;
+    private Bitmap bitmap;
     private String MY_PREF = "MY_PREF";
     private String NAME_KEY = "nameKey";
     private String EMAIL_KEY = "emailKey";
@@ -69,7 +69,6 @@ public class EditProfileFragment extends Fragment {
     private EditText et_email;
     private SharedPreferences sharedPreferences;
     private DatabaseReference mDatabase;
-    private String name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -202,8 +201,19 @@ public class EditProfileFragment extends Fragment {
                 if (resultCode == RESULT_OK) {
                     if (data != null) {
                         Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                        Cursor cursor = this.getActivity().getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);
+                        cursor.moveToFirst();
+
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String picturePath = cursor.getString(columnIndex);
+                        cursor.close();
+
+                        bitmap = BitmapFactory.decodeFile(picturePath);
                         iv_profile.setImageBitmap(bitmap);
-                        setSharedPreferences(PROFILE_PHOTO_KEY, String.valueOf(selectedImage));
+                        setSharedPreferences(PROFILE_PHOTO_KEY, String.valueOf(picturePath));
                         getSharedPreferences(PROFILE_PHOTO_KEY, "");
                     }
                 }
