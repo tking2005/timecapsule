@@ -2,7 +2,10 @@ package com.timecapsule.app;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,8 @@ import android.widget.ImageView;
 
 import com.timecapsule.app.audioactivity.AudioFragment2;
 import com.timecapsule.app.cameraactivity.CameraActivity;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by catwong on 3/4/17.
@@ -78,6 +83,30 @@ public class AddMediaFragment extends Fragment {
         Intent capture = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(capture, TAKE_PICTURE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+
+            case TAKE_PICTURE:
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                        Cursor cursor = this.getActivity().getContentResolver().query(selectedImage,
+                                filePathColumn, null, null, null);
+                        cursor.moveToFirst();
+
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String picturePath = cursor.getString(columnIndex);
+                        cursor.close();
+                    }
+                }
+                break;
+        }
     }
 
 
