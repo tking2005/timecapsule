@@ -21,6 +21,7 @@ public class AddMediaFragment extends Fragment {
     private View mRoot;
     private ImageView iv_camera;
     private ImageView iv_audio;
+    private static final int TAKE_PICTURE = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,8 @@ public class AddMediaFragment extends Fragment {
         iv_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToCamera();
+//                goToCamera();
+                goToNativeCamera();
             }
         });
     }
@@ -70,6 +72,12 @@ public class AddMediaFragment extends Fragment {
                     .beginTransaction()
                     .replace(R.id.container_main, new AudioFragment2())
                     .commit();
+    }
+
+    public void goToNativeCamera(){
+        Intent capture = new Intent(
+                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(capture, TAKE_PICTURE);
     }
 
 
