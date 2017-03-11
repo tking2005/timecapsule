@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00ffff"
-    tools:context="com.timecapsule.app.timecapsule.com.c4q.hakeemsackes_bramble.timecapsule.feedactivity.FeedFragment">
+    tools:context="com.timecapsule.app.feedactivity.FeedFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_feed"
