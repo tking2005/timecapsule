@@ -38,13 +38,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void setSignInClickView() {
-        iv_sign_in.setImageResource(R.drawable.signin7);
-        iv_sign_up.setImageResource(R.drawable.signup6_uc);
+        iv_sign_in.setImageResource(R.drawable.signin_8);
+        iv_sign_up.setImageResource(R.drawable.signup8_uc);
     }
 
     private void setSignUpClickView() {
-        iv_sign_up.setImageResource(R.drawable.signup7);
-        iv_sign_in.setImageResource(R.drawable.signin6_uc);
+        iv_sign_up.setImageResource(R.drawable.signup_8);
+        iv_sign_in.setImageResource(R.drawable.signin8_uc);
     }
 
     private void setSignIn() {

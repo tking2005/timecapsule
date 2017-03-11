@@ -1,4 +1,4 @@
-package com.timecapsule.app.audioactivity;
+package com.timecapsule.app.addmediafragment;
 
 import android.app.Fragment;
 import android.content.pm.PackageManager;
