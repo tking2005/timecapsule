@@ -2,15 +2,22 @@ package com.timecapsule.app;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.timecapsule.app.audioactivity.AudioFragment2;
 
 import java.io.File;
@@ -33,10 +40,18 @@ public class AddMediaFragment extends Fragment {
     private ImageView iv_audio;
     private ImageView iv_videocam;
     private String mCurrentPhotoPath;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
+    private StorageReference imagesRef;
+    private UploadTask uploadTask;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
+        imagesRef = storageReference.child("images");
     }
 
     @Nullable
@@ -56,7 +71,7 @@ public class AddMediaFragment extends Fragment {
         iv_videocam = (ImageView) mRoot.findViewById(R.id.iv_videocam);
     }
 
-    private void clickCamera() {
+    public void clickCamera() {
         iv_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,13 +80,13 @@ public class AddMediaFragment extends Fragment {
         });
     }
 
-    public void goToNativeCamera() {
+    private void goToNativeCamera() {
         Intent capture = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(capture, TAKE_PICTURE);
     }
 
-    private void clickAudio() {
+    public void clickAudio() {
         iv_audio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +102,7 @@ public class AddMediaFragment extends Fragment {
                 .commit();
     }
 
-    public void clickVideocam(){
+    public void clickVideocam() {
         iv_videocam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +112,7 @@ public class AddMediaFragment extends Fragment {
 
     }
 
-    public void goToNativeVideo(){
+    public void goToNativeVideo() {
         Intent record = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         startActivityForResult(record, CAPTURE_VIDEO);
     }
@@ -112,6 +127,7 @@ public class AddMediaFragment extends Fragment {
                     if (data != null) {
                         try {
                             createImageFile();
+                            uploadImage();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -121,7 +137,7 @@ public class AddMediaFragment extends Fragment {
         }
     }
 
-    private File createImageFile() throws IOException {
+    public File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -132,8 +148,34 @@ public class AddMediaFragment extends Fragment {
                 storageDir      /* directory */
         );
 
+        String firebaseReference = imageFileName.concat(".jpg");
+        imagesRef = imagesRef.child(firebaseReference);
+        StorageReference newImageRef = storageReference.child("images/".concat(firebaseReference));
+        newImageRef.getName().equals(newImageRef.getName());
+        newImageRef.getPath().equals(newImageRef.getPath());
+
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
+    private void uploadImage() {
+        Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
+        StorageReference imageRef = storageReference.child("images/" + file.getLastPathSegment());
+        uploadTask = imageRef.putFile(file);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            }
+        });
+    }
+
+
 }
