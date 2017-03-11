@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <!-- A CardView that contains a TextView -->
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
+    <android.support.v7.widget.CardView
+        android:id="@+id/profile_card_view"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -18,13 +15,108 @@
         card_view:cardCornerRadius="10dp"
         card_view:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/tv_number"
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+            android:id="@+id/tv_profile_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/colorAccent"
             android:gravity="center"
             android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/profile_card_photo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/profile_cat" />
+
+            <TextView
+                android:id="@+id/profile_card_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/profile_card_photo"
+                android:layout_alignTop="@id/profile_card_photo"
+                android:layout_toEndOf="@+id/profile_card_photo"
+                android:gravity="center"
+                android:text="heycatwonton"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/profile_card_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="30 mins"
+                android:textSize="13sp"
+                android:layout_alignTop="@+id/profile_card_username"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="14dp"
+                android:layout_alignBottom="@+id/profile_card_username" />
+
+            <ImageView
+                android:id="@+id/iv_profile_card_tc_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/profile_card_tc_created_num"
+                android:layout_alignStart="@+id/profile_card_photo"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/timecapsule_bw2" />
+
+            <TextView
+                android:id="@+id/profile_card_tc_created_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/iv_profile_card_tc_logo"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/iv_profile_card_tc_logo"
+                android:layout_marginBottom="11dp"
+                android:gravity="center"
+                android:text="2"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/profile_card_tc_created_location_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/iv_profile_card_tc_logo"
+                android:layout_toEndOf="@+id/iv_profile_card_tc_logo"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:text="WeWork" />
+
+            <TextView
+                android:id="@+id/profile_card_tc_created_location_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:layout_toRightOf="@+id/iv_profile_card_tc_logo"
+                android:layout_below="@id/profile_card_tc_created_location_name"
+                android:text="33 Irving Place" />
+
+            <TextView
+                android:id="@+id/profile_card_tc_created_location_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:layout_toRightOf="@+id/iv_profile_card_tc_logo"
+                android:layout_below="@id/profile_card_tc_created_location_address"
+                android:text="New York, NY 10003" />
+
+        </android.support.percent.PercentRelativeLayout>
 
     </android.support.v7.widget.CardView>
 

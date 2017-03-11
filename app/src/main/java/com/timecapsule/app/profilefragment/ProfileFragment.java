@@ -20,7 +20,7 @@ import com.facebook.share.model.AppInviteContent;
 import com.facebook.share.widget.AppInviteDialog;
 import com.squareup.picasso.Picasso;
 import com.timecapsule.app.R;
-import com.timecapsule.app.feedactivity.controller.FeedAdapter;
+import com.timecapsule.app.profilefragment.controller.ProfileCapsulesCreatedAdapter;
 
 
 public class ProfileFragment extends Fragment {
@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) mRoot.findViewById(R.id.rv_profile);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new FeedAdapter());
+        recyclerView.setAdapter(new ProfileCapsulesCreatedAdapter());
     }
 
 
@@ -79,7 +79,7 @@ public class ProfileFragment extends Fragment {
                 .load(R.drawable.profile_cat) //extract as User instance method
                 .transform(new CropCircleTransformation())
                 .resize(125,125)
-                .into(profile);
+                .into(iv_profile_photo);
     }
 
     public void setSharedPrefs() {
