@@ -10,7 +10,7 @@ public class Constants {
     private Constants() {
     }
 
-    public static final String PACKAGE_NAME = "com.example.c4q_ac35.espy";
+    public static final String PACKAGE_NAME = "com.timecapsule.app.geofence";
 
     public static final String SHARED_PREFERENCES_NAME = PACKAGE_NAME + ".SHARED_PREFERENCES_NAME";
 
