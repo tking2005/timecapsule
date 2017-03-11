@@ -18,7 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.timecapsule.app.audioactivity.AudioFragment2;
+import com.timecapsule.app.addmediafragment.AudioFragment2;
 
 import java.io.File;
 import java.io.IOException;
