@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,10 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.AppInviteContent;
 import com.facebook.share.widget.AppInviteDialog;
+import com.squareup.picasso.Picasso;
 import com.timecapsule.app.R;
+import com.timecapsule.app.feedactivity.controller.FeedAdapter;
+
 
 public class ProfileFragment extends Fragment {
 
@@ -32,6 +37,8 @@ public class ProfileFragment extends Fragment {
     private TextView tv_profile_username;
     private TextView tv_profile_name;
     private SharedPreferences sharedPreferences;
+    private ImageView profile;
+    private RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,14 @@ public class ProfileFragment extends Fragment {
         return mRoot;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        recyclerView = (RecyclerView) mRoot.findViewById(R.id.rv_profile);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(new FeedAdapter());
+    }
+
 
     public void setViews() {
         bt_edit_profile = (Button) mRoot.findViewById(R.id.bt_edit_profile);
@@ -58,6 +73,13 @@ public class ProfileFragment extends Fragment {
         iv_profile_photo = (ImageView) mRoot.findViewById(R.id.iv_profile_photo);
         tv_profile_username = (TextView) mRoot.findViewById(R.id.tv_profile_username);
         tv_profile_name = (TextView) mRoot.findViewById(R.id.tv_profile_name);
+        profile = (ImageView) mRoot.findViewById(R.id.test_photo);
+
+        Picasso.with(getActivity())
+                .load(R.drawable.profile_cat) //extract as User instance method
+                .transform(new CropCircleTransformation())
+                .resize(125,125)
+                .into(profile);
     }
 
     public void setSharedPrefs() {

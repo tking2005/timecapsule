@@ -47,8 +47,8 @@
 
     <ImageView
         android:id="@+id/iv_edit_profile_photo"
-        android:layout_width="77dp"
-        android:layout_height="77dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/tv_edit_profile_top"
         android:layout_centerHorizontal="true"
         android:gravity="center"
