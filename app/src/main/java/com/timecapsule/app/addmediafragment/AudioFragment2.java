@@ -1,11 +1,13 @@
-package com.timecapsule.app.audioactivity;
+package com.timecapsule.app.addmediafragment;
 
 import android.app.Fragment;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +18,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.timecapsule.app.R;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -26,25 +34,64 @@ import java.io.IOException;
 
 public class AudioFragment2 extends Fragment {
 
-    private View mRoot;
     Handler handler;
     MediaRecorder mRecorder;
-    private String fileName;
-    private Boolean isRecording;
     int recordTime;
     int playTime;
     SeekBar mSeekBar;
     MediaPlayer mPlayer;
+    private View mRoot;
+    private String fileName;
+    private Boolean isRecording;
     private ImageView iv_audio_record;
     private ImageView iv_audio_stop_record;
     private ImageView iv_audio_play;
     private TextView tv_audio_time;
+    Runnable UpdatePlayTime = new Runnable() {
+        public void run() {
+            if (mPlayer.isPlaying()) {
+                tv_audio_time.setText(String.valueOf(playTime));
+                // Update play time and SeekBar
+                playTime += 1;
+                mSeekBar.setProgress(playTime);
+                // Delay 1s before next call
+                handler.postDelayed(this, 1000);
+            }
+        }
+    };
     private int MAX_DURATION = 15000;
     private int MAX_SECONDS = 16;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
+    private StorageReference audioRef;
+    private UploadTask uploadTask;
+    Runnable UpdateRecordTime = new Runnable() {
+        public void run() {
+            if (isRecording) {
+                tv_audio_time.setText(String.valueOf(recordTime));
+                mSeekBar.setProgress(recordTime);
+                recordTime += 1;
+                if (recordTime == MAX_SECONDS) {
+                    tv_audio_time.setText("Recording Done");
+                    stopRecording();
+                } else if (!isRecording) {
+                    recordTime = 0;
+                }
+                // Delay 1s before next call
+                handler.postDelayed(this, 1000);
+
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
+        audioRef = storageReference.child("audio");
+        handler = new Handler();
+        isRecording = false;
     }
 
     @Nullable
@@ -56,9 +103,6 @@ public class AudioFragment2 extends Fragment {
         setRecord();
         setStopRecord();
         setPlay();
-        handler = new Handler();
-        fileName = Environment.getExternalStorageDirectory()+ "/audio"+System.currentTimeMillis()+".3gp";
-        isRecording = false;
         return mRoot;
     }
 
@@ -71,6 +115,7 @@ public class AudioFragment2 extends Fragment {
     }
 
     public void MediaRecorderReady() {
+        fileName = Environment.getExternalStorageDirectory() + "/audio" + System.currentTimeMillis() + ".3gp";
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -78,15 +123,39 @@ public class AudioFragment2 extends Fragment {
         mRecorder.setOutputFile(fileName);
     }
 
+    private void createFirebaseRef() {
+        String firebaseReference = fileName.concat(".3gp");
+        audioRef = audioRef.child(firebaseReference);
+        StorageReference newAudioRef = storageReference.child("audio/".concat(firebaseReference));
+        newAudioRef.getName().equals(newAudioRef.getName());
+        newAudioRef.getPath().equals(newAudioRef.getPath());
+    }
 
-    public void setMaxDuration(){
+    private void uploadAudio() {
+        Uri file = Uri.fromFile(new File(fileName));
+        StorageReference audioRef = storageReference.child("audio/" + file.getLastPathSegment());
+        uploadTask = audioRef.putFile(file);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            }
+        });
+    }
+
+    public void setMaxDuration() {
         mRecorder.setMaxDuration(MAX_DURATION);
     }
 
-    public void setMaxSeekBar(){
+    public void setMaxSeekBar() {
         mSeekBar.setMax(15);
     }
-
 
     public void setRecord() {
         iv_audio_record.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +166,8 @@ public class AudioFragment2 extends Fragment {
         });
     }
 
-    public void startRecording(View view){
-        if(!isRecording){
+    public void startRecording(View view) {
+        if (!isRecording) {
             //Create MediaRecorder and initialize audio source, output format, and audio encoder
             MediaRecorderReady();
             setMaxDuration();
@@ -131,11 +200,13 @@ public class AudioFragment2 extends Fragment {
         });
     }
 
-    public void stopRecording(){
-        if(isRecording){
+    public void stopRecording() {
+        if (isRecording) {
             // Stop recording and release resource
             mRecorder.stop();
             mRecorder.release();
+            createFirebaseRef();
+            uploadAudio();
             mRecorder = null;
             // Change isRecording flag to false
             isRecording = false;
@@ -153,10 +224,9 @@ public class AudioFragment2 extends Fragment {
                 playRecording(v);
             }
         });
-
     }
 
-    public void playRecording(View view){
+    public void playRecording(View view) {
         // Create MediaPlayer object
         mPlayer = new MediaPlayer();
         // set start time
@@ -177,37 +247,6 @@ public class AudioFragment2 extends Fragment {
             Log.e("LOG_TAG", "prepare failed");
         }
     }
-
-    Runnable UpdateRecordTime = new Runnable(){
-        public void run(){
-            if(isRecording){
-                tv_audio_time.setText(String.valueOf(recordTime));
-                mSeekBar.setProgress(recordTime);
-                recordTime += 1;
-                if(recordTime == MAX_SECONDS){
-                    tv_audio_time.setText("Recording Done");
-                    stopRecording();
-                } else if(!isRecording){
-                    recordTime = 0;
-                }
-                // Delay 1s before next call
-                handler.postDelayed(this, 1000);
-
-            }
-        }
-    };
-    Runnable UpdatePlayTime = new Runnable(){
-        public void run(){
-            if(mPlayer.isPlaying()){
-                tv_audio_time.setText(String.valueOf(playTime));
-                // Update play time and SeekBar
-                playTime += 1;
-                mSeekBar.setProgress(playTime);
-                // Delay 1s before next call
-                handler.postDelayed(this, 1000);
-            }
-        }
-    };
 
 
 }

@@ -1,4 +1,4 @@
-package nyc.c4q.hakeemsackes_bramble.timecapsule.geofence;
+package com.timecapsule.app.geofence;
 
 import com.google.android.gms.location.Geofence;
 

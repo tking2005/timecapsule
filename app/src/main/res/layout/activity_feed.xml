@@ -4,7 +4,7 @@
     android:id="@+id/activity_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.timecapsule.app.timecapsule.com.c4q.hakeemsackes_bramble.timecapsule.feedactivity.FeedActivity">
+    tools:context="com.timecapsule.app.feedactivity.FeedActivity">
 
     <FrameLayout
         android:id="@+id/container_main"
@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="start"
         app:itemBackground="@color/colorPrimaryDark"
         app:itemIconTint="@color/colorAccent2"
         app:menu="@menu/bottom_nav_menu" >

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginRight="13dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:paddingLeft="24dp"
         android:src="@drawable/ic_email_black_24dp" />
 
@@ -57,10 +57,9 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/colorPrimaryDark"
         android:clickable="true"
         android:onClick="onClick"
-        android:src="@drawable/timecapsule_signup_bottom4"
+        android:src="@drawable/time_capsule_signup_bottom5"
         app:layout_heightPercent="20%" />
 
 
