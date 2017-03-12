@@ -1,17 +1,13 @@
 package com.timecapsule.app;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,33 +15,30 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.timecapsule.app.addmediafragment.AudioFragment2;
-import com.timecapsule.app.geofence.TimePlacePicker;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.app.Activity.RESULT_OK;
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 /**
- * Created by catwong on 3/4/17.
+ * Created by tarynking on 3/11/17.
  */
 
-public class AddMediaFragment extends Fragment {
+public class GoToMedia extends AppCompatActivity {
 
     private static final int TAKE_PICTURE = 200;
     private static final int CAPTURE_VIDEO = 201;
     private View mRoot;
-    private ImageView iv_camera;
-    private ImageView iv_audio;
-    private ImageView iv_videocam;
     private String mCurrentPhotoPath;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
     private StorageReference imagesRef;
     private UploadTask uploadTask;
+    private String mediaType;
+    private double locationLat;
+    private double locationLong;
+    private String address;
 
 
     @Override
@@ -54,34 +47,29 @@ public class AddMediaFragment extends Fragment {
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
         imagesRef = storageReference.child("images");
+
+        mediaType = getIntent().getExtras().getString("keyMediaType");
+        locationLat = getIntent().getExtras().getDouble("keyLocationLat");
+        locationLong = getIntent().getExtras().getDouble("keyLocationLong");
+        address = getIntent().getExtras().getString("keyAddress");
+
+        openMedia(mediaType);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        mRoot = inflater.inflate(R.layout.fragment_add_media, parent, false);
-        setViews();
-        clickCamera();
-        clickAudio();
-        clickVideocam();
-        return mRoot;
+    private void openMedia(String mediaType) {
+        switch (mediaType){
+            case "camera":
+                goToNativeCamera();
+                break;
+            case "video":
+                goToNativeVideo();
+                break;
+            case "audio":
+                goToAudio();
+                break;
+        }
     }
 
-    private void setViews() {
-        iv_camera = (ImageView) mRoot.findViewById(R.id.iv_camera);
-        iv_audio = (ImageView) mRoot.findViewById(R.id.iv_audio);
-        iv_videocam = (ImageView) mRoot.findViewById(R.id.iv_videocam);
-    }
-
-    public void clickCamera() {
-        iv_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openPlacePicker("camera");
-                //goToNativeCamera();
-            }
-        });
-    }
 
     private void goToNativeCamera() {
         Intent capture = new Intent(
@@ -89,15 +77,6 @@ public class AddMediaFragment extends Fragment {
         startActivityForResult(capture, TAKE_PICTURE);
     }
 
-    public void clickAudio() {
-        iv_audio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openPlacePicker("audio");
-//                goToAudio();
-            }
-        });
-    }
 
     private void goToAudio() {
         getFragmentManager()
@@ -106,16 +85,6 @@ public class AddMediaFragment extends Fragment {
                 .commit();
     }
 
-    public void clickVideocam() {
-        iv_videocam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openPlacePicker("video");
-//                goToNativeVideo();
-            }
-        });
-
-    }
 
     public void goToNativeVideo() {
         Intent record = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -146,7 +115,7 @@ public class AddMediaFragment extends Fragment {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -182,12 +151,5 @@ public class AddMediaFragment extends Fragment {
         });
     }
 
-    private void openPlacePicker(String mediaType) {
-        // Create an explicit content Intent that starts the timePlacePickerActivity.
-        Intent placepickerIntent = new Intent(getApplicationContext(), TimePlacePicker.class);
-        placepickerIntent.putExtra("key", mediaType);
-        startActivity(placepickerIntent);
-
-    }
 
 }
