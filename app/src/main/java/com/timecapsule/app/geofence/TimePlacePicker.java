@@ -12,7 +12,6 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
-import com.timecapsule.app.R;
 import com.timecapsule.app.GoToMedia;
 
 public class TimePlacePicker extends AppCompatActivity {
@@ -25,8 +24,6 @@ public class TimePlacePicker extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_place_picker);
-
         mediaType = getIntent().getExtras().getString("key");
 
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -70,6 +67,4 @@ public class TimePlacePicker extends AppCompatActivity {
             }
         }
     }
-
-
 }
